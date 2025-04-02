@@ -17,7 +17,6 @@ class Main
     public static function init()
     {
         Post_Types::init();
-        Taxonomies::init();
         Menu::init();
 
         // Add activation hook
@@ -32,9 +31,6 @@ class Main
         
         // Register post types and taxonomies
         Post_Types::on_activation();
-
-        // Add default taxonomy terms
-        Taxonomies::add_default_terms();
         
         // Maybe set default options
         if (! get_option('wp_business_proposals_version') ) {
