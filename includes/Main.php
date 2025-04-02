@@ -19,8 +19,7 @@ class Main
         Post_Types::init();
         Taxonomies::init();
         Menu::init();
-        Meta_Boxes::init();
-        
+
         // Add activation hook
         register_activation_hook(WP_BUSINESS_PROPOSALS_FILE, array( __CLASS__, 'activate' ));
     }
