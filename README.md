@@ -1,2 +1,3 @@
 # proposals
-A  lightweight business proposals plugin for WordPress.
+This gets you paid faster, with less hassle.
+
