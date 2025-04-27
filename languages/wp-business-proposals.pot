@@ -1,0 +1,49 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: WP Business Proposals 1.0.0\n"
+"Report-Msgid-Bugs-To: https://yoostrap.com/\n"
+"POT-Creation-Date: 2024-06-09 00:00+0000\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: AI\n"
+
+#: wp-business-proposals.php:18
+msgid "Proposals"
+msgstr ""
+
+#: wp-business-proposals.php:19
+msgid "Proposal"
+msgstr ""
+
+#: wp-business-proposals.php:20
+msgid "Add New"
+msgstr ""
+
+#: wp-business-proposals.php:21
+msgid "Add New Proposal"
+msgstr ""
+
+#: wp-business-proposals.php:22
+msgid "New Proposal"
+msgstr ""
+
+#: wp-business-proposals.php:23
+msgid "Edit Proposal"
+msgstr ""
+
+#: wp-business-proposals.php:24
+msgid "View Proposal"
+msgstr ""
+
+#: wp-business-proposals.php:25
+msgid "All Proposals"
+msgstr ""
+
+#: wp-business-proposals.php:26
+msgid "No proposals found."
+msgstr ""
+
+#: wp-business-proposals.php:27
+msgid "No proposals found in Trash."
+msgstr "" 
