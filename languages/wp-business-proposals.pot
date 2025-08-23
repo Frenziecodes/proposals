@@ -1,49 +1,278 @@
+# Copyright (C) 2024 Lewis Ushindi
+# This file is distributed under the GPLv3 or later.
 msgid ""
 msgstr ""
 "Project-Id-Version: WP Business Proposals 1.0.0\n"
-"Report-Msgid-Bugs-To: https://yoostrap.com/\n"
-"POT-Creation-Date: 2024-06-09 00:00+0000\n"
+"Report-Msgid-Bugs-To: https://github.com/Frenziecodes/wp-business-proposals/issues\n"
+"POT-Creation-Date: 2024-08-24 12:00+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: AI\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+"X-Generator: WP-CLI 2.8.1\n"
+"X-Domain: proposals\n"
 
-#: wp-business-proposals.php:18
+#. Plugin Name of the plugin
+msgid "WP Business Proposals"
+msgstr ""
+
+#. Plugin URI of the plugin
+msgid "https://github.com/Frenziecodes/wp-business-proposals"
+msgstr ""
+
+#. Description of the plugin
+msgid "Create, manage, and send professional business proposals directly from your WordPress dashboard. Features secure proposal viewing, client management, and status tracking."
+msgstr ""
+
+#. Author of the plugin
+msgid "Lewis Ushindi"
+msgstr ""
+
+#. Author URI of the plugin
+msgid "https://github.com/frenziecodes"
+msgstr ""
+
+#: wp-business-proposals.php:147
+msgctxt "post type general name"
 msgid "Proposals"
 msgstr ""
 
-#: wp-business-proposals.php:19
+#: wp-business-proposals.php:148
+msgctxt "post type singular name"
 msgid "Proposal"
 msgstr ""
 
-#: wp-business-proposals.php:20
+#: wp-business-proposals.php:149
+msgctxt "admin menu"
+msgid "Proposals"
+msgstr ""
+
+#: wp-business-proposals.php:150
+msgctxt "add new on admin bar"
+msgid "Proposal"
+msgstr ""
+
+#: wp-business-proposals.php:151
+msgctxt "proposal"
 msgid "Add New"
 msgstr ""
 
-#: wp-business-proposals.php:21
+#: wp-business-proposals.php:152
 msgid "Add New Proposal"
 msgstr ""
 
-#: wp-business-proposals.php:22
+#: wp-business-proposals.php:153
 msgid "New Proposal"
 msgstr ""
 
-#: wp-business-proposals.php:23
+#: wp-business-proposals.php:154
 msgid "Edit Proposal"
 msgstr ""
 
-#: wp-business-proposals.php:24
+#: wp-business-proposals.php:155
 msgid "View Proposal"
 msgstr ""
 
-#: wp-business-proposals.php:25
+#: wp-business-proposals.php:156
 msgid "All Proposals"
 msgstr ""
 
-#: wp-business-proposals.php:26
+#: wp-business-proposals.php:157
+msgid "Search Proposals"
+msgstr ""
+
+#: wp-business-proposals.php:158
+msgid "Parent Proposals:"
+msgstr ""
+
+#: wp-business-proposals.php:159
 msgid "No proposals found."
 msgstr ""
 
-#: wp-business-proposals.php:27
+#: wp-business-proposals.php:160
 msgid "No proposals found in Trash."
-msgstr "" 
+msgstr ""
+
+#: wp-business-proposals.php:161
+msgid "Proposal Cover Image"
+msgstr ""
+
+#: wp-business-proposals.php:162
+msgid "Set cover image"
+msgstr ""
+
+#: wp-business-proposals.php:163
+msgid "Remove cover image"
+msgstr ""
+
+#: wp-business-proposals.php:164
+msgid "Use as cover image"
+msgstr ""
+
+#: wp-business-proposals.php:165
+msgid "Proposal archives"
+msgstr ""
+
+#: wp-business-proposals.php:166
+msgid "Insert into proposal"
+msgstr ""
+
+#: wp-business-proposals.php:167
+msgid "Uploaded to this proposal"
+msgstr ""
+
+#: wp-business-proposals.php:168
+msgid "Filter proposals list"
+msgstr ""
+
+#: wp-business-proposals.php:169
+msgid "Proposals list navigation"
+msgstr ""
+
+#: wp-business-proposals.php:170
+msgid "Proposals list"
+msgstr ""
+
+#: wp-business-proposals.php:174
+msgid "Business proposals for your clients"
+msgstr ""
+
+#: wp-business-proposals.php:201
+msgctxt "taxonomy general name"
+msgid "Proposal Status"
+msgstr ""
+
+#: wp-business-proposals.php:202
+msgctxt "taxonomy singular name"
+msgid "Status"
+msgstr ""
+
+#: wp-business-proposals.php:203
+msgid "Search Statuses"
+msgstr ""
+
+#: wp-business-proposals.php:204
+msgid "Popular Statuses"
+msgstr ""
+
+#: wp-business-proposals.php:205
+msgid "All Statuses"
+msgstr ""
+
+#: wp-business-proposals.php:208
+msgid "Edit Status"
+msgstr ""
+
+#: wp-business-proposals.php:209
+msgid "Update Status"
+msgstr ""
+
+#: wp-business-proposals.php:210
+msgid "Add New Status"
+msgstr ""
+
+#: wp-business-proposals.php:211
+msgid "New Status Name"
+msgstr ""
+
+#: wp-business-proposals.php:212
+msgid "Separate statuses with commas"
+msgstr ""
+
+#: wp-business-proposals.php:213
+msgid "Add or remove statuses"
+msgstr ""
+
+#: wp-business-proposals.php:214
+msgid "Choose from the most used statuses"
+msgstr ""
+
+#: wp-business-proposals.php:215
+msgid "No statuses found."
+msgstr ""
+
+#: wp-business-proposals.php:216
+msgid "Status"
+msgstr ""
+
+#: wp-business-proposals.php:268
+msgid "Access Denied"
+msgstr ""
+
+#: wp-business-proposals.php:269
+msgid "You do not have permission to view this proposal."
+msgstr ""
+
+#: wp-business-proposals.php:324
+#. translators: %s: client name
+msgid "Prepared for: %s"
+msgstr ""
+
+#: wp-business-proposals.php:341
+#. translators: %s: proposal amount
+msgid "Total: %s"
+msgstr ""
+
+#: wp-business-proposals.php:446
+msgid "Proposal Details"
+msgstr ""
+
+#: wp-business-proposals.php:454
+msgid "Client Access"
+msgstr ""
+
+#: wp-business-proposals.php:470
+msgid "Client Name"
+msgstr ""
+
+#: wp-business-proposals.php:477
+msgid "Client Email"
+msgstr ""
+
+#: wp-business-proposals.php:484
+msgid "Proposal Amount"
+msgstr ""
+
+#: wp-business-proposals.php:486
+msgid "e.g., $5,000 or €3,500"
+msgstr ""
+
+#: wp-business-proposals.php:504
+msgid "Share this link with your client:"
+msgstr ""
+
+#: wp-business-proposals.php:507
+msgid "This secure link allows your client to view the proposal without logging in."
+msgstr ""
+
+#: wp-business-proposals.php:511
+msgid "Generate New Link"
+msgstr ""
+
+#: wp-business-proposals.php:626
+msgid "Client"
+msgstr ""
+
+#: wp-business-proposals.php:627
+msgid "Amount"
+msgstr ""
+
+#: wp-business-proposals.php:688
+msgid "Draft"
+msgstr ""
+
+#: wp-business-proposals.php:689
+msgid "Sent"
+msgstr ""
+
+#: wp-business-proposals.php:690
+msgid "Accepted"
+msgstr ""
+
+#: wp-business-proposals.php:691
+msgid "Declined"
+msgstr ""

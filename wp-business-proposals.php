@@ -1,26 +1,25 @@
 <?php
 /**
- * Plugin Name: WP Business Proposals
- * Plugin URI: https://github.com/Frenziecodes/wp-business-proposals
+ * Plugin Name: Business Proposals
+ * Plugin URI: https://github.com/Frenziecodes/proposals
  * Description: Create, manage, and send professional business proposals directly from your WordPress dashboard. Features secure proposal viewing, client management, and status tracking.
  * Version: 1.0.0
  * Author: Lewis Ushindi
  * Author URI: https://github.com/frenziecodes
- * Text Domain: wp-business-proposals
+ * Text Domain: proposals
  * Domain Path: /languages
  * Requires at least: 5.8
  * Tested up to: 6.8
  * Requires PHP: 7.4
  * License: GPLv3 or later
  * License URI: https://www.gnu.org/licenses/gpl-3.0.html
- * Network: false
  *
- * WP Business Proposals is free software: you can redistribute it and/or modify
+ * Business Proposals is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * any later version.
  *
- * WP Business Proposals is distributed in the hope that it will be useful,
+ * Business Proposals is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU General Public License for more details.
@@ -36,6 +35,9 @@ define( 'WPBP_VERSION', '1.0.0' );
 define( 'WPBP_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 define( 'WPBP_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 define( 'WPBP_PLUGIN_FILE', __FILE__ );
+
+// Include common global functions.
+require_once WPBP_PLUGIN_DIR . 'includes/functions.php';
 
 /**
  * Main WP Business Proposals Class
@@ -93,7 +95,7 @@ class WP_Business_Proposals {
 	 */
 	public function load_textdomain() {
 		load_plugin_textdomain(
-			'wp-business-proposals',
+			'proposals',
 			false,
 			dirname( plugin_basename( __FILE__ ) ) . '/languages'
 		);
@@ -106,35 +108,35 @@ class WP_Business_Proposals {
 	 */
 	public function register_post_type() {
 		$labels = array(
-			'name'                  => _x( 'Proposals', 'post type general name', 'wp-business-proposals' ),
-			'singular_name'         => _x( 'Proposal', 'post type singular name', 'wp-business-proposals' ),
-			'menu_name'             => _x( 'Proposals', 'admin menu', 'wp-business-proposals' ),
-			'name_admin_bar'        => _x( 'Proposal', 'add new on admin bar', 'wp-business-proposals' ),
-			'add_new'               => _x( 'Add New', 'proposal', 'wp-business-proposals' ),
-			'add_new_item'          => __( 'Add New Proposal', 'wp-business-proposals' ),
-			'new_item'              => __( 'New Proposal', 'wp-business-proposals' ),
-			'edit_item'             => __( 'Edit Proposal', 'wp-business-proposals' ),
-			'view_item'             => __( 'View Proposal', 'wp-business-proposals' ),
-			'all_items'             => __( 'All Proposals', 'wp-business-proposals' ),
-			'search_items'          => __( 'Search Proposals', 'wp-business-proposals' ),
-			'parent_item_colon'     => __( 'Parent Proposals:', 'wp-business-proposals' ),
-			'not_found'             => __( 'No proposals found.', 'wp-business-proposals' ),
-			'not_found_in_trash'    => __( 'No proposals found in Trash.', 'wp-business-proposals' ),
-			'featured_image'        => __( 'Proposal Cover Image', 'wp-business-proposals' ),
-			'set_featured_image'    => __( 'Set cover image', 'wp-business-proposals' ),
-			'remove_featured_image' => __( 'Remove cover image', 'wp-business-proposals' ),
-			'use_featured_image'    => __( 'Use as cover image', 'wp-business-proposals' ),
-			'archives'              => __( 'Proposal archives', 'wp-business-proposals' ),
-			'insert_into_item'      => __( 'Insert into proposal', 'wp-business-proposals' ),
-			'uploaded_to_this_item' => __( 'Uploaded to this proposal', 'wp-business-proposals' ),
-			'filter_items_list'     => __( 'Filter proposals list', 'wp-business-proposals' ),
-			'items_list_navigation' => __( 'Proposals list navigation', 'wp-business-proposals' ),
-			'items_list'            => __( 'Proposals list', 'wp-business-proposals' ),
+			'name'                  => _x( 'Proposals', 'post type general name', 'proposals' ),
+			'singular_name'         => _x( 'Proposal', 'post type singular name', 'proposals' ),
+			'menu_name'             => _x( 'Proposals', 'admin menu', 'proposals' ),
+			'name_admin_bar'        => _x( 'Proposal', 'add new on admin bar', 'proposals' ),
+			'add_new'               => _x( 'Add New', 'proposal', 'proposals' ),
+			'add_new_item'          => __( 'Add New Proposal', 'proposals' ),
+			'new_item'              => __( 'New Proposal', 'proposals' ),
+			'edit_item'             => __( 'Edit Proposal', 'proposals' ),
+			'view_item'             => __( 'View Proposal', 'proposals' ),
+			'all_items'             => __( 'All Proposals', 'proposals' ),
+			'search_items'          => __( 'Search Proposals', 'proposals' ),
+			'parent_item_colon'     => __( 'Parent Proposals:', 'proposals' ),
+			'not_found'             => __( 'No proposals found.', 'proposals' ),
+			'not_found_in_trash'    => __( 'No proposals found in Trash.', 'proposals' ),
+			'featured_image'        => __( 'Proposal Cover Image', 'proposals' ),
+			'set_featured_image'    => __( 'Set cover image', 'proposals' ),
+			'remove_featured_image' => __( 'Remove cover image', 'proposals' ),
+			'use_featured_image'    => __( 'Use as cover image', 'proposals' ),
+			'archives'              => __( 'Proposal archives', 'proposals' ),
+			'insert_into_item'      => __( 'Insert into proposal', 'proposals' ),
+			'uploaded_to_this_item' => __( 'Uploaded to this proposal', 'proposals' ),
+			'filter_items_list'     => __( 'Filter proposals list', 'proposals' ),
+			'items_list_navigation' => __( 'Proposals list navigation', 'proposals' ),
+			'items_list'            => __( 'Proposals list', 'proposals' ),
 		);
 
 		$args = array(
 			'labels'              => $labels,
-			'description'         => __( 'Business proposals for your clients', 'wp-business-proposals' ),
+			'description'         => __( 'Business proposals for your clients', 'proposals' ),
 			'public'              => false,
 			'publicly_queryable'  => true,
 			'show_ui'             => true,
@@ -165,22 +167,22 @@ class WP_Business_Proposals {
 	 */
 	private function register_proposal_status_taxonomy() {
 		$labels = array(
-			'name'                       => _x( 'Proposal Status', 'taxonomy general name', 'wp-business-proposals' ),
-			'singular_name'              => _x( 'Status', 'taxonomy singular name', 'wp-business-proposals' ),
-			'search_items'               => __( 'Search Statuses', 'wp-business-proposals' ),
-			'popular_items'              => __( 'Popular Statuses', 'wp-business-proposals' ),
-			'all_items'                  => __( 'All Statuses', 'wp-business-proposals' ),
+			'name'                       => _x( 'Proposal Status', 'taxonomy general name', 'proposals' ),
+			'singular_name'              => _x( 'Status', 'taxonomy singular name', 'proposals' ),
+			'search_items'               => __( 'Search Statuses', 'proposals' ),
+			'popular_items'              => __( 'Popular Statuses', 'proposals' ),
+			'all_items'                  => __( 'All Statuses', 'proposals' ),
 			'parent_item'                => null,
 			'parent_item_colon'          => null,
-			'edit_item'                  => __( 'Edit Status', 'wp-business-proposals' ),
-			'update_item'                => __( 'Update Status', 'wp-business-proposals' ),
-			'add_new_item'               => __( 'Add New Status', 'wp-business-proposals' ),
-			'new_item_name'              => __( 'New Status Name', 'wp-business-proposals' ),
-			'separate_items_with_commas' => __( 'Separate statuses with commas', 'wp-business-proposals' ),
-			'add_or_remove_items'        => __( 'Add or remove statuses', 'wp-business-proposals' ),
-			'choose_from_most_used'      => __( 'Choose from the most used statuses', 'wp-business-proposals' ),
-			'not_found'                  => __( 'No statuses found.', 'wp-business-proposals' ),
-			'menu_name'                  => __( 'Status', 'wp-business-proposals' ),
+			'edit_item'                  => __( 'Edit Status', 'proposals' ),
+			'update_item'                => __( 'Update Status', 'proposals' ),
+			'add_new_item'               => __( 'Add New Status', 'proposals' ),
+			'new_item_name'              => __( 'New Status Name', 'proposals' ),
+			'separate_items_with_commas' => __( 'Separate statuses with commas', 'proposals' ),
+			'add_or_remove_items'        => __( 'Add or remove statuses', 'proposals' ),
+			'choose_from_most_used'      => __( 'Choose from the most used statuses', 'proposals' ),
+			'not_found'                  => __( 'No statuses found.', 'proposals' ),
+			'menu_name'                  => __( 'Status', 'proposals' ),
 		);
 
 		$args = array(
@@ -235,8 +237,8 @@ class WP_Business_Proposals {
 			// Check if user has permission to view this proposal.
 			if ( ! $this->can_user_view_proposal( $post->ID ) ) {
 				return '<div class="wpbp-access-denied">' .
-					   '<h3>' . esc_html__( 'Access Denied', 'wp-business-proposals' ) . '</h3>' .
-					   '<p>' . esc_html__( 'You do not have permission to view this proposal.', 'wp-business-proposals' ) . '</p>' .
+					   '<h3>' . esc_html__( 'Access Denied', 'proposals' ) . '</h3>' .
+					   '<p>' . esc_html__( 'You do not have permission to view this proposal.', 'proposals' ) . '</p>' .
 					   '</div>';
 			}
 
@@ -306,7 +308,7 @@ class WP_Business_Proposals {
 						<?php
 						printf(
 							/* translators: %s: client name */
-							esc_html__( 'Prepared for: %s', 'wp-business-proposals' ),
+							esc_html__( 'Prepared for: %s', 'proposals' ),
 							'<strong>' . esc_html( $data['client_name'] ) . '</strong>'
 						);
 						?>
@@ -326,7 +328,7 @@ class WP_Business_Proposals {
 							<?php
 							printf(
 								/* translators: %s: proposal amount */
-								esc_html__( 'Total: %s', 'wp-business-proposals' ),
+								esc_html__( 'Total: %s', 'proposals' ),
 								esc_html( $data['amount'] )
 							);
 							?>
@@ -406,7 +408,7 @@ class WP_Business_Proposals {
 	public function add_proposal_meta_boxes() {
 		add_meta_box(
 			'wpbp-proposal-details',
-			__( 'Proposal Details', 'wp-business-proposals' ),
+			__( 'Proposal Details', 'proposals' ),
 			array( $this, 'render_proposal_details_meta_box' ),
 			'wpbp_proposal',
 			'normal',
@@ -415,7 +417,7 @@ class WP_Business_Proposals {
 
 		add_meta_box(
 			'wpbp-client-access',
-			__( 'Client Access', 'wp-business-proposals' ),
+			__( 'Client Access', 'proposals' ),
 			array( $this, 'render_client_access_meta_box' ),
 			'wpbp_proposal',
 			'side',
@@ -439,7 +441,7 @@ class WP_Business_Proposals {
 		<table class="form-table">
 			<tr>
 				<th scope="row">
-					<label for="wpbp_client_name"><?php esc_html_e( 'Client Name', 'wp-business-proposals' ); ?></label>
+					<label for="wpbp_client_name"><?php esc_html_e( 'Client Name', 'proposals' ); ?></label>
 				</th>
 				<td>
 					<input type="text" id="wpbp_client_name" name="wpbp_client_name" value="<?php echo esc_attr( $client_name ); ?>" class="regular-text" />
@@ -447,7 +449,7 @@ class WP_Business_Proposals {
 			</tr>
 			<tr>
 				<th scope="row">
-					<label for="wpbp_client_email"><?php esc_html_e( 'Client Email', 'wp-business-proposals' ); ?></label>
+					<label for="wpbp_client_email"><?php esc_html_e( 'Client Email', 'proposals' ); ?></label>
 				</th>
 				<td>
 					<input type="email" id="wpbp_client_email" name="wpbp_client_email" value="<?php echo esc_attr( $client_email ); ?>" class="regular-text" />
@@ -455,11 +457,11 @@ class WP_Business_Proposals {
 			</tr>
 			<tr>
 				<th scope="row">
-					<label for="wpbp_proposal_amount"><?php esc_html_e( 'Proposal Amount', 'wp-business-proposals' ); ?></label>
+					<label for="wpbp_proposal_amount"><?php esc_html_e( 'Proposal Amount', 'proposals' ); ?></label>
 				</th>
 				<td>
 					<input type="text" id="wpbp_proposal_amount" name="wpbp_proposal_amount" value="<?php echo esc_attr( $amount ); ?>" class="regular-text" />
-					<p class="description"><?php esc_html_e( 'e.g., $5,000 or €3,500', 'wp-business-proposals' ); ?></p>
+					<p class="description"><?php esc_html_e( 'e.g., $5,000 or €3,500', 'proposals' ); ?></p>
 				</td>
 			</tr>
 		</table>
@@ -482,14 +484,14 @@ class WP_Business_Proposals {
 
 		$client_url = get_permalink( $post->ID ) . '?token=' . $access_token;
 		?>
-		<p><strong><?php esc_html_e( 'Share this link with your client:', 'wp-business-proposals' ); ?></strong></p>
+		<p><strong><?php esc_html_e( 'Share this link with your client:', 'proposals' ); ?></strong></p>
 		<input type="text" value="<?php echo esc_url( $client_url ); ?>" readonly class="widefat" onclick="this.select();" />
 		<p class="description">
-			<?php esc_html_e( 'This secure link allows your client to view the proposal without logging in.', 'wp-business-proposals' ); ?>
+			<?php esc_html_e( 'This secure link allows your client to view the proposal without logging in.', 'proposals' ); ?>
 		</p>
 		<p>
 			<button type="button" class="button" onclick="wpbp_regenerate_token(<?php echo absint( $post->ID ); ?>)">
-				<?php esc_html_e( 'Generate New Link', 'wp-business-proposals' ); ?>
+				<?php esc_html_e( 'Generate New Link', 'proposals' ); ?>
 			</button>
 		</p>
 		<?php
@@ -547,8 +549,8 @@ class WP_Business_Proposals {
 			$new_columns[ $key ] = $value;
 			
 			if ( 'title' === $key ) {
-				$new_columns['client'] = __( 'Client', 'wp-business-proposals' );
-				$new_columns['amount'] = __( 'Amount', 'wp-business-proposals' );
+				$new_columns['client'] = __( 'Client', 'proposals' );
+				$new_columns['amount'] = __( 'Amount', 'proposals' );
 			}
 		}
 		
@@ -576,78 +578,3 @@ class WP_Business_Proposals {
 		}
 	}
 }
-
-/**
- * Initialize the plugin
- *
- * @since 1.0.0
- */
-function wpbp_init() {
-	return WP_Business_Proposals::get_instance();
-}
-
-// Initialize plugin.
-add_action( 'plugins_loaded', 'wpbp_init' );
-
-/**
- * Plugin activation hook
- *
- * @since 1.0.0
- */
-function wpbp_activate() {
-	// Initialize the plugin to register post type.
-	wpbp_init();
-	
-	// Create default proposal statuses.
-	$statuses = array(
-		'draft'     => __( 'Draft', 'wp-business-proposals' ),
-		'sent'      => __( 'Sent', 'wp-business-proposals' ),
-		'accepted'  => __( 'Accepted', 'wp-business-proposals' ),
-		'declined'  => __( 'Declined', 'wp-business-proposals' ),
-	);
-	
-	foreach ( $statuses as $slug => $name ) {
-		if ( ! term_exists( $slug, 'wpbp_proposal_status' ) ) {
-			wp_insert_term( $name, 'wpbp_proposal_status', array( 'slug' => $slug ) );
-		}
-	}
-	
-	// Flush rewrite rules.
-	flush_rewrite_rules();
-}
-register_activation_hook( __FILE__, 'wpbp_activate' );
-
-/**
- * Plugin deactivation hook
- *
- * @since 1.0.0
- */
-function wpbp_deactivate() {
-	flush_rewrite_rules();
-}
-register_deactivation_hook( __FILE__, 'wpbp_deactivate' );
-
-/**
- * AJAX handler for regenerating access token
- *
- * @since 1.0.0
- */
-function wpbp_regenerate_access_token() {
-	// Check nonce and permissions here in a real implementation.
-	$post_id = intval( $_POST['post_id'] ?? 0 );
-	
-	if ( $post_id && current_user_can( 'edit_post', $post_id ) ) {
-		$new_token = wp_generate_password( 32, false );
-		update_post_meta( $post_id, '_wpbp_access_token', $new_token );
-		
-		wp_send_json_success( array(
-			'token' => $new_token,
-			'url'   => get_permalink( $post_id ) . '?token=' . $new_token,
-		) );
-	}
-	
-	wp_send_json_error();
-}
-add_action( 'wp_ajax_wpbp_regenerate_token', 'wpbp_regenerate_access_token' );
-
-// End of file.
