@@ -1,6 +1,6 @@
 === WP Business Proposals ===
 Contributors: frenziecodes
-Donate link: https://yoostrap.com/
+Donate link: https://github.com/frenziecodes/
 Tags: proposals, business, crm, custom post type, management
 Requires at least: 5.8
 Tested up to: 6.8
