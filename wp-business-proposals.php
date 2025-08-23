@@ -60,8 +60,14 @@ class WP_Business_Proposals {
 	 * @since 1.0.0
 	 */
 	private function __construct() {
-		add_action( 'init', array( $this, 'init' ) );
+		// Initialize immediately, not just on init hook
 		add_action( 'plugins_loaded', array( $this, 'load_textdomain' ) );
+		
+		// Register post type early - this is critical for URL recognition
+		add_action( 'init', array( $this, 'register_post_type' ), 0 );
+		
+		// Initialize other features after post type is registered
+		add_action( 'init', array( $this, 'init_features' ), 10 );
 	}
 
 	/**
@@ -78,12 +84,11 @@ class WP_Business_Proposals {
 	}
 
 	/**
-	 * Initialize plugin functionality
+	 * Initialize plugin features (after post type registration)
 	 *
 	 * @since 1.0.0
 	 */
-	public function init() {
-		$this->register_post_type();
+	public function init_features() {
 		$this->add_hooks();
 		$this->add_admin_features();
 	}
@@ -137,12 +142,15 @@ class WP_Business_Proposals {
 		$args = array(
 			'labels'              => $labels,
 			'description'         => __( 'Business proposals for your clients', 'proposals' ),
-			'public'              => false,
+			'public'              => true,
 			'publicly_queryable'  => true,
 			'show_ui'             => true,
 			'show_in_menu'        => true,
 			'query_var'           => true,
-			'rewrite'             => array( 'slug' => 'proposal' ),
+			'rewrite'             => array( 
+				'slug' => 'proposal',
+				'with_front' => false,
+			),
 			'capability_type'     => 'post',
 			'has_archive'         => false,
 			'hierarchical'        => false,
@@ -205,10 +213,32 @@ class WP_Business_Proposals {
 	 * @since 1.0.0
 	 */
 	private function add_hooks() {
-		add_filter( 'the_content', array( $this, 'filter_proposal_content' ) );
 		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_frontend_scripts' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_admin_scripts' ) );
 		add_filter( 'single_template', array( $this, 'load_proposal_template' ) );
+		
+		// Add template redirect for better handling
+		add_action( 'template_redirect', array( $this, 'handle_proposal_access' ) );
+	}
+
+	/**
+	 * Handle proposal access and security
+	 *
+	 * @since 1.0.0
+	 */
+	public function handle_proposal_access() {
+		if ( is_singular( 'wpbp_proposal' ) ) {
+			global $post;
+			
+			// Check if user has permission to view this proposal
+			if ( ! $this->can_user_view_proposal( $post->ID ) ) {
+				// Show 404 instead of access denied for security
+				global $wp_query;
+				$wp_query->set_404();
+				status_header( 404 );
+				return;
+			}
+		}
 	}
 
 	/**
@@ -224,39 +254,13 @@ class WP_Business_Proposals {
 	}
 
 	/**
-	 * Filter proposal content for secure display
-	 *
-	 * @since 1.0.0
-	 * @param string $content Post content.
-	 * @return string Filtered content.
-	 */
-	public function filter_proposal_content( $content ) {
-		if ( is_singular( 'wpbp_proposal' ) && in_the_loop() && is_main_query() ) {
-			global $post;
-
-			// Check if user has permission to view this proposal.
-			if ( ! $this->can_user_view_proposal( $post->ID ) ) {
-				return '<div class="wpbp-access-denied">' .
-					   '<h3>' . esc_html__( 'Access Denied', 'proposals' ) . '</h3>' .
-					   '<p>' . esc_html__( 'You do not have permission to view this proposal.', 'proposals' ) . '</p>' .
-					   '</div>';
-			}
-
-			$proposal_data = $this->get_proposal_data( $post->ID );
-			$content = $this->render_proposal_template( $proposal_data );
-		}
-
-		return $content;
-	}
-
-	/**
 	 * Check if user can view proposal
 	 *
 	 * @since 1.0.0
 	 * @param int $proposal_id Proposal ID.
 	 * @return bool True if user can view proposal.
 	 */
-	private function can_user_view_proposal( $proposal_id ) {
+	public function can_user_view_proposal( $proposal_id ) {
 		// Allow proposal author and administrators.
 		if ( current_user_can( 'edit_post', $proposal_id ) || current_user_can( 'manage_options' ) ) {
 			return true;
@@ -264,9 +268,9 @@ class WP_Business_Proposals {
 
 		// Check for public access token (for client viewing).
 		$access_token = get_post_meta( $proposal_id, '_wpbp_access_token', true );
-		$provided_token = sanitize_text_field( wp_unslash( $_GET['token'] ?? '' ) );
+		$provided_token = isset( $_GET['token'] ) ? sanitize_text_field( wp_unslash( $_GET['token'] ) ) : '';
 
-		return ! empty( $access_token ) && hash_equals( $access_token, $provided_token );
+		return ! empty( $access_token ) && ! empty( $provided_token ) && hash_equals( $access_token, $provided_token );
 	}
 
 	/**
@@ -276,12 +280,21 @@ class WP_Business_Proposals {
 	 * @param int $proposal_id Proposal ID.
 	 * @return array Proposal data.
 	 */
-	private function get_proposal_data( $proposal_id ) {
+	public function get_proposal_data( $proposal_id ) {
 		$post = get_post( $proposal_id );
+		
+		// Process content without using the_content filter to avoid recursion
+		$content = $post->post_content;
+		
+		// Apply basic content filters (but not the_content to avoid our own filter)
+		$content = wptexturize( $content );
+		$content = wpautop( $content );
+		$content = shortcode_unautop( $content );
+		$content = do_shortcode( $content );
 		
 		return array(
 			'title'        => get_the_title( $proposal_id ),
-			'content'      => apply_filters( 'the_content', $post->post_content ),
+			'content'      => $content,
 			'client_name'  => get_post_meta( $proposal_id, '_wpbp_client_name', true ),
 			'client_email' => get_post_meta( $proposal_id, '_wpbp_client_email', true ),
 			'amount'       => get_post_meta( $proposal_id, '_wpbp_proposal_amount', true ),
@@ -297,7 +310,7 @@ class WP_Business_Proposals {
 	 * @param array $data Proposal data.
 	 * @return string Rendered template.
 	 */
-	private function render_proposal_template( $data ) {
+	public function render_proposal_template( $data ) {
 		ob_start();
 		?>
 		<div class="wpbp-proposal-wrapper">
@@ -350,7 +363,7 @@ class WP_Business_Proposals {
 	 */
 	public function load_proposal_template( $template ) {
 		if ( is_singular( 'wpbp_proposal' ) ) {
-			$custom_template = WPBP_PLUGIN_DIR . 'templates/single-proposal.php';
+			$custom_template = WPBP_PLUGIN_DIR . 'extensions/templates/single-proposal.php';
 			if ( file_exists( $custom_template ) ) {
 				return $custom_template;
 			}

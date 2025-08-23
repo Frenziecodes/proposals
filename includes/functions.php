@@ -9,8 +9,8 @@ function wpbp_init() {
 	return WP_Business_Proposals::get_instance();
 }
 
-// Initialize plugin.
-add_action( 'plugins_loaded', 'wpbp_init' );
+// Initialize plugin immediately when this file is loaded
+wpbp_init();
 
 /**
  * Plugin activation hook
